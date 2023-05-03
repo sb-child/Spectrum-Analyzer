@@ -9,7 +9,7 @@
 
 import pyaudio
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import math
 import socket
 
@@ -28,25 +28,25 @@ for i in range(pyaudio.PyAudio().get_device_count()):
 stream = p.open(format=pyaudio.paFloat32, channels=2, rate=SAMPLING_RATE,
                 input=True, input_device_index=8, frames_per_buffer=CHUNK_SIZE)
 
-fig, (ax_left, ax_right) = plt.subplots(1, 2)
+# fig, (ax_left, ax_right) = plt.subplots(1, 2)
 
-x = np.linspace(0, 16, 16)
+# x = np.linspace(0, 16, 16)
 
-line_left, = ax_left.plot(x, np.random.rand(16), lw=2)
-line_right, = ax_right.plot(x, np.random.rand(16), lw=2)
+# line_left, = ax_left.plot(x, np.random.rand(16), lw=2)
+# line_right, = ax_right.plot(x, np.random.rand(16), lw=2)
 
-ax_left.set_ylim(0, 8)
-ax_left.set_xlim(0, 16)
-ax_right.set_ylim(0, 8)
-ax_left.set_xlim(0, 16)
+# ax_left.set_ylim(0, 8)
+# ax_left.set_xlim(0, 16)
+# ax_right.set_ylim(0, 8)
+# ax_left.set_xlim(0, 16)
 
 
-ax_left.set_xlabel('Frequency (Hz)')
-ax_left.set_ylabel('Magnitude')
-ax_right.set_xlabel('Frequency (Hz)')
-ax_right.set_ylabel('Magnitude')
+# ax_left.set_xlabel('Frequency (Hz)')
+# ax_left.set_ylabel('Magnitude')
+# ax_right.set_xlabel('Frequency (Hz)')
+# ax_right.set_ylabel('Magnitude')
 
-fig.show()
+# fig.show()
 
 left_spectrum_16 = np.zeros(16)
 right_spectrum_16 = np.zeros(16)
@@ -98,8 +98,8 @@ while True:
         right_spectrum_16[i] = right_split if right_split > right_spectrum_16[i] else right_spectrum_16[i]
         right_spectrum_16_rt[i] = right_split
 
-    line_left.set_ydata(left_spectrum_16)
-    line_right.set_ydata(right_spectrum_16)
+    # line_left.set_ydata(left_spectrum_16)
+    # line_right.set_ydata(right_spectrum_16)
 
     left_spectrum_16[left_spectrum_16 > 7] = 7
     right_spectrum_16[right_spectrum_16 > 7] = 7
@@ -121,5 +121,5 @@ while True:
     except OSError:
         pass
 
-    fig.canvas.draw()
-    fig.canvas.flush_events()
+    # fig.canvas.draw()
+    # fig.canvas.flush_events()
