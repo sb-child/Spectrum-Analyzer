@@ -51,7 +51,10 @@ fig.show()
 left_spectrum_16 = np.zeros(16)
 right_spectrum_16 = np.zeros(16)
 
-ba = bytearray(32)
+left_spectrum_16_rt = np.zeros(16)
+right_spectrum_16_rt = np.zeros(16)
+
+ba = bytearray(64)
 
 while True:
     data = stream.read(CHUNK_SIZE)
@@ -67,8 +70,8 @@ while True:
     left_spectrum = np.abs(left_fft)[:CHUNK_SIZE//2]
     right_spectrum = np.abs(right_fft)[:CHUNK_SIZE//2]
 
-    left_spectrum = (5*np.log10(left_spectrum)) + 5
-    right_spectrum = (5*np.log10(right_spectrum)) + 5
+    left_spectrum = (5.5*np.log10(left_spectrum)) + 5.5
+    right_spectrum = (5.5*np.log10(right_spectrum)) + 5.5
 
     left_spectrum_16 *= 0.9
     right_spectrum_16 *= 0.9
@@ -85,6 +88,7 @@ while True:
             left_split) or left_split > 10 else left_split
         left_split = left_split * 0.7
         left_spectrum_16[i] = left_split if left_split > left_spectrum_16[i] else left_spectrum_16[i]
+        left_spectrum_16_rt[i] = left_split
         right_split = right_spectrum[freq_from:freq_to].max()
         right_split = 0 if math.isnan(
             right_split) or right_split < 0 else right_split
@@ -92,7 +96,8 @@ while True:
             right_split) or right_split > 10 else right_split
         right_split = right_split * 0.7
         right_spectrum_16[i] = right_split if right_split > right_spectrum_16[i] else right_spectrum_16[i]
-        
+        right_spectrum_16_rt[i] = right_split
+
     line_left.set_ydata(left_spectrum_16)
     line_right.set_ydata(right_spectrum_16)
 
@@ -105,10 +110,16 @@ while True:
         else:
             ba[i] = int(right_spectrum_16[i - 16])
 
+    for i in range(32, 64):
+        if i < 48:
+            ba[i] = int(left_spectrum_16_rt[i - 32])
+        else:
+            ba[i] = int(right_spectrum_16_rt[(i - 32) - 16])
+
     try:
         sock.send(ba)
     except OSError:
         pass
-    
+
     fig.canvas.draw()
     fig.canvas.flush_events()

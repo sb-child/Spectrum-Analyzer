@@ -62,12 +62,12 @@ void loop()
   {
     uint8_t packetBuffer[packetSize];
     udp.read(packetBuffer, packetSize);
-    if (packetSize != 32)
+    if (packetSize != 64)
     {
       return;
     }
     u8g2.clearBuffer();
-    for (int i = 0; i < packetSize; i++)
+    for (int i = 0; i < 32; i++)
     {
       if (i < 16)
       {
@@ -76,6 +76,17 @@ void loop()
       else
       {
         u8g2.drawPixel(i, 7 - packetBuffer[i]);
+      }
+    }
+    for (int i = 32; i < 64; i++)
+    {
+      if (i < 48)
+      {
+        u8g2.drawLine(15 - (i - 32), 7, 15 - (i - 32), 7 - packetBuffer[i]);
+      }
+      else
+      {
+        u8g2.drawLine(i - 32, 7, i - 32, 7 - packetBuffer[i]);
       }
     }
     u8g2.sendBuffer();
