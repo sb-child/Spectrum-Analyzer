@@ -10,14 +10,15 @@
 #include <Wire.h>
 #endif
 
-const char *ssid = "TP-LINK_6687";
-const char *password = "d123456789";
+const char *ssid = "TP-LINK_6687";   // set your ssid
+const char *password = "d123456789"; // set your password
 WiFiUDP udp;
 IPAddress staticIP(192, 168, 0, 123); // Set your desired static IP address
 IPAddress gateway(192, 168, 0, 1);    // Set your gateway IP address
 IPAddress subnet(255, 255, 255, 0);   // Set your subnet mask
 IPAddress dns(8, 8, 8, 8);            // Set your primary DNS server
 
+// change this define if needed
 U8G2_MAX7219_32X8_F_4W_SW_SPI u8g2(U8G2_R2, 14, 13, 12, U8X8_PIN_NONE, U8X8_PIN_NONE);
 
 void setup()
@@ -36,8 +37,6 @@ void setup()
       u8g2.drawPixel(i, h);
     }
     u8g2.sendBuffer();
-    // u8g2.drawLine(0, 0, 15, 7);
-    // u8g2.sendBuffer();
     delay(100);
     Serial.println("Connecting to WiFi...");
   }
@@ -53,8 +52,6 @@ void loop()
   int packetSize = udp.parsePacket();
   if (packetSize > 0)
   {
-    // Serial.print("Received packet of size ");
-    // Serial.println(packetSize);
     uint8_t packetBuffer[packetSize];
     udp.read(packetBuffer, packetSize);
     if (packetSize != 32)
@@ -74,6 +71,5 @@ void loop()
       }
     }
     u8g2.sendBuffer();
-    // Serial.println();
   }
 }
