@@ -4,12 +4,12 @@ It just works.
 
 ## Demo
 
-<!-- [video](./demo/video_2023-05-03_15-26-10.mp4) -->
-
 <video controls>
   <source src="./demo/video_2023-05-03_15-26-10.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
+[click to watch](./demo/video_2023-05-03_15-26-10.mp4)
 
 ## Documentation
 
