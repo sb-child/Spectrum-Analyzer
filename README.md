@@ -19,7 +19,21 @@ It just works.
 2. install `python` and `pyaudio`, `numpy`, `matplotlib` libraries.
 3. modify the code to fit your wifi settings.
 4. compile and upload firmware to `esp8266-12f`.
-5. solder four MAX7219 8*8 led matrix modules
+5. solder four MAX7219 8*8 led matrix modules:
+
+```
+ESP8266
+    |
+    V
+[matrix 1]-DOUT > DIN-[matrix 2]-DOUT > DIN-[matrix 3]-DOUT > DIN-[matrix 4]
+          -CS   >  CS-          -CS   >  CS-          -CS   >  CS-
+          -CLK  > CLK-          -CLK  > CLK-          -CLK  > CLK-
+          -VCC  > VCC-          -VCC  > VCC-          -VCC  > VCC-
+          -GND  > GND-          -GND  > GND-          -GND  > GND-
+<-----------L CHANNEL---------->            <-----------R CHANNEL---------->
+HIGH FREQ               LOW FREQ            LOW FREQ               HIGH FREQ
+```
+
 6. connect the first module `VCC - 5V`, `GND - GND`, `DIN - D7`, `CS - D6`, `CLK - D5`.
 
 > NOTE: Check whether VCC-GND is short-circuited before powering on.
