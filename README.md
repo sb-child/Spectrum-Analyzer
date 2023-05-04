@@ -2,6 +2,8 @@
 
 It just works.
 
+## [<查看中文版 view Chinese version>](./README.zh-cn.md)
+
 ## Demo
 
 <video controls>
